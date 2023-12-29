@@ -52,4 +52,4 @@ RUN apt-get upgrade \
     && ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
     && ln -sf /bin/bash /bin/sh \
     && chmod +x ${dir_root}/docker/docker-entrypoint.sh
-ENTRYPOINT [".docker/docker-entrypoint.sh"]
+ENTRYPOINT ["./docker/docker-entrypoint.sh"]
