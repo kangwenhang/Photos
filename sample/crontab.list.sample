@@ -1,4 +1,4 @@
-#删除旧日志
+# 更新脚本
 59 7 * * 1 sh /photos/scipt/update.sh
  
 # 运行照片整理
