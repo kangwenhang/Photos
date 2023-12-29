@@ -46,7 +46,7 @@ k1483162508/photos:tag
 - 最后，使用SQLite数据库存储照片的文件名和哈希值，以便检查重复性。使用日志文件记录照片文件的操作情况。
 
 假设你的源文件夹是这样的：
-
+```
 <待整理图片的源目录>
 temp_photos/
 ├── IMG224924.jpg
@@ -58,9 +58,10 @@ temp_photos/
 │   ├── screenshot_Photo119.jpg
 │   └── Photo120.jpg
 └── IMG211429.jpg
+```
 
 那么，运行photos_organizer.py文件后，你的目标文件夹会变成这样的：
-
+```
 <整理后图片的目标目录>
 photos/
 ├── 2019
@@ -84,3 +85,4 @@ photos/
 │   └──screenshot_Photo119.jpg
 └── small_size
     └── IMG134031.jpg
+```
