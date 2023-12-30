@@ -66,13 +66,13 @@ def calculate_hash(file_path):
     return hash_obj.hexdigest()
 
 # 定义日志级别函数，并返回解释器
-def create_logger(log_path, log_name):
+def create_logger(name, log_path):
     if not os.path.exists(os.path.dirname(log_path)):
         os.makedirs(os.path.dirname(log_path))
     log_handler = RotatingFileHandler(log_path, maxBytes=100*1024*1024, backupCount=5)
     log_formatter = logging.Formatter('%(asctime)s %(message)s')
     log_handler.setFormatter(log_formatter)
-    log = logging.getLogger(log_name)
+    log = logging.getLogger(name)
     log.setLevel(logging.INFO)
     log.addHandler(log_handler)
     return log
@@ -197,17 +197,17 @@ if len(source_paths) != len(target_paths):
 for source, target in zip(source_paths, target_paths):
     # 日志变量-字典
     log_dict = {
-        'log_photos_low_res': os.path.join(os.path.basename(source), 'move', 'low_res.log'),
-        'log_photos_small_size': os.path.join(os.path.basename(source), 'move', 'small_size.log'),
-        'log_photos_duplicated': os.path.join(os.path.basename(source), 'move', 'duplicated.log'),
-        'log_photos_screenshot': os.path.join(os.path.basename(source), 'move', 'screenshot.log'),
-        'log_photos_organize': os.path.join(os.path.basename(source), 'move', 'organize.log'),
-        'log_photos_hash': os.path.join(os.path.basename(source), 'hash', 'hash.log'),
-        'log_photos_error': os.path.join(os.path.basename(source), 'error', 'error.log')
+    'log_photos_low_res': ('low_res', os.path.join(os.path.basename(source), 'move', 'low_res.log')),
+    'log_photos_small_size': ('small_size', os.path.join(os.path.basename(source), 'move', 'small_size.log')),
+    'log_photos_duplicated': ('duplicated', os.path.join(os.path.basename(source), 'move', 'duplicated.log')),
+    'log_photos_screenshot': ('screenshot', os.path.join(os.path.basename(source), 'move', 'screenshot.log')),
+    'log_photos_organize': ('organize', os.path.join(os.path.basename(source), 'move', 'organize.log')),
+    'log_photos_hash': ('hash', os.path.join(os.path.basename(source), 'hash', 'hash.log')),
+    'log_photos_error': ('error', os.path.join(os.path.basename(source), 'error', 'error.log'))
     }
     # 新增的代码：用一个循环来调用函数，创建日志文件的处理器和记录器
-    for item, log_path in log_dict.items():
-        log_dict[item] = create_logger(os.path.join(LOGS_PATH, log_path), item)
+    for item, (name, log_path) in log_dict.items():
+        log_dict[item] = create_logger(name, os.path.join(LOGS_PATH, log_path))
     db_name = os.path.basename(source) + '.db'
     db_path = os.path.join(DB_FOLDER, db_name)
     organize_files_by_date(source, target)
