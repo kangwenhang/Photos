@@ -69,6 +69,7 @@ def calculate_hash(file_path):
 def create_logger(name, log_path):
     if not os.path.exists(os.path.dirname(log_path)):
         os.makedirs(os.path.dirname(log_path))
+    name = name + '_' + os.path.basename(log_path)
     log_handler = RotatingFileHandler(log_path, maxBytes=100*1024*1024, backupCount=5)
     log_formatter = logging.Formatter('%(asctime)s %(message)s')
     log_handler.setFormatter(log_formatter)
